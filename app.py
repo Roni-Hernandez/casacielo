@@ -57,21 +57,36 @@ for item in st.session_state.item_list:
         display_text = f"➡️ {display_text}"
     
     # Use a unique key for each checkbox based on item_id
-    new_completed_status = st.checkbox(
-        display_text, 
-        value=is_completed, 
-        key=f"cb_{item_id}"
+    
+    def on_checkbox_change(changed_item_id):
+        # Find the item and update its completed status
+        for task_item in st.session_state.item_list:
+            if task_item['id'] == changed_item_id:
+                # The new value of the checkbox is already in st.session_state under its key
+                task_item['completed'] = st.session_state[f"cb_{changed_item_id}"]
+                
+                # If a hopped item is completed, adjust hop_item_id
+                if changed_item_id == st.session_state.hop_item_id and task_item['completed']:
+                    active_items_ids = [i['id'] for i in st.session_state.item_list if not i['completed']]
+                    if active_items_ids:
+                        # Try to pick a different active item if possible
+                        possible_next_hops = [id_ for id_ in active_items_ids if id_ != st.session_state.hop_item_id]
+                        if possible_next_hops:
+                             st.session_state.hop_item_id = random.choice(possible_next_hops)
+                        else: # Only one active item left (the one just completed was the only other, or it was the only one)
+                             st.session_state.hop_item_id = random.choice(active_items_ids) if active_items_ids else None
+                    else:
+                        st.session_state.hop_item_id = None
+                break
+        # No explicit st.rerun() needed here, on_change handles it.
+
+    st.checkbox(
+        display_text,
+        value=item['completed'], # Directly use item's current completed status
+        key=f"cb_{item_id}",
+        on_change=on_checkbox_change,
+        args=(item_id,) 
     )
-    if new_completed_status != is_completed:
-        item['completed'] = new_completed_status
-        # If a hopped item is completed, remove hop or pick a new one
-        if item_id == st.session_state.hop_item_id and new_completed_status:
-            active_items = [i['id'] for i in st.session_state.item_list if not i['completed']]
-            if active_items:
-                st.session_state.hop_item_id = random.choice(active_items)
-            else:
-                st.session_state.hop_item_id = None
-        st.rerun()
 
 # --- Hop Button ---
 if st.button("¡Saltar!"):
