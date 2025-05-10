@@ -97,7 +97,7 @@ new_item_text = st.sidebar.text_input("Añadir nuevo recordatorio:", key="new_it
 if st.sidebar.button("Añadir Recordatorio"):
     if new_item_text:
         new_id = str(uuid.uuid4())
-        st.session_state.item_list.append({"id": new_id, "text": new_item_text, "completed": False})
+        st.session_state.item_list.insert(0, {"id": new_id, "text": new_item_text, "completed": False}) # Insert at the beginning
         if st.session_state.hop_item_id is None: # If no item was hopped, hop to the new one
             st.session_state.hop_item_id = new_id
         new_item_text = "" # Clear input, though Streamlit handles this with rerun
