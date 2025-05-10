@@ -1,0 +1,142 @@
+[
+  {
+    "id": "6692f0ff-ade3-4766-b6d9-c7ebc1845019",
+    "text": "Arreglar el aire acondicionado",
+    "completed": true
+  },
+  {
+    "id": "1ddca878-1b24-457c-8206-ef3200579871",
+    "text": "Poner la cerradura con c\u00f3digo",
+    "completed": true
+  },
+  {
+    "id": "be0cf9c6-1cd0-448f-be74-714d810914d0",
+    "text": "Poner la caja de llaves",
+    "completed": false
+  },
+  {
+    "id": "3e4606be-da96-4300-aa23-b940e3f208b1",
+    "text": "Comprar mesita para computadora",
+    "completed": false
+  },
+  {
+    "id": "ffa1e3a6-e6b1-4b7d-872a-04f0e227f1de",
+    "text": "Comprar un silla para la computadora",
+    "completed": false
+  },
+  {
+    "id": "b0e40370-85da-4d03-bea9-46fe546a54aa",
+    "text": "Comprar un cable de extensi\u00f3n multienchufe",
+    "completed": false
+  },
+  {
+    "id": "ab2397c4-2a40-4f5d-896c-5818be23c09e",
+    "text": "Comprar un horno multifuncional",
+    "completed": false
+  },
+  {
+    "id": "9f07e1be-70bd-44ee-b318-0581d42f8d71",
+    "text": "Comprar caf\u00e9 normal",
+    "completed": false
+  },
+  {
+    "id": "f5c7a711-9f8e-482c-bdda-55d43438b169",
+    "text": "Comprar caf\u00e9 descafeinado",
+    "completed": false
+  },
+  {
+    "id": "8cf9e676-0696-4b9c-ab07-790c28f84b6f",
+    "text": "Comprar te",
+    "completed": false
+  },
+  {
+    "id": "3056f594-8752-4504-b801-02e26785fb0a",
+    "text": "Comprar una m\u00e1quina para hacer caf\u00e9, no greca",
+    "completed": false
+  },
+  {
+    "id": "1e51fb77-5582-4962-b9a3-4e327775bfc3",
+    "text": "Comprar jab\u00f3n l\u00edquido para ba\u00f1arse",
+    "completed": false
+  },
+  {
+    "id": "f066903a-9614-4f8b-9a91-55c3bd908316",
+    "text": "Comprar jab\u00f3n l\u00edquido para lavar trastes",
+    "completed": false
+  },
+  {
+    "id": "9fdcc473-13d7-4289-b904-5b12c01b18a3",
+    "text": "Comprar jab\u00f3n l\u00edquido para lavarse las manos",
+    "completed": false
+  },
+  {
+    "id": "da10be32-5251-47d2-96ff-0c62dda76c0b",
+    "text": "6 conjuntos de sabana blancas",
+    "completed": false
+  },
+  {
+    "id": "50b0ca26-41d4-4346-9126-0a22466dc508",
+    "text": "Comprar una c\u00e1maratimbre de la marca Ring de bater\u00eda",
+    "completed": false
+  },
+  {
+    "id": "8ccee027-2437-4745-84a6-cfe0b89a8b41",
+    "text": "Comprar dos bater\u00edas extra para la c\u00e1maratimbre",
+    "completed": false
+  },
+  {
+    "id": "f04603b5-1778-4cd1-8d76-6ac3ff21101c",
+    "text": "Comprar cargador para las bater\u00edas",
+    "completed": false
+  },
+  {
+    "id": "3cb830c7-701e-4877-8c8d-f280bbffe321",
+    "text": "Comprar la bocina para la c\u00e1mara timbre",
+    "completed": false
+  },
+  {
+    "id": "d23b0204-057f-470f-add3-280e977fc1dd",
+    "text": "Comprar un secador de pelo b\u00e1sico",
+    "completed": false
+  },
+  {
+    "id": "e84d2d47-25d3-4b73-a237-11b53b93c713",
+    "text": "Comprar un Extintor \ud83e\uddef",
+    "completed": false
+  },
+  {
+    "id": "6e99511c-254e-43ca-9d37-cd396a324c9c",
+    "text": "Comprar un Detector de humo y mon\u00f3xido de carbono",
+    "completed": false
+  },
+  {
+    "id": "689082fa-5dbd-46c8-a518-033e1aa64245",
+    "text": "Comprar un Botiqu\u00edn de primeros auxilios",
+    "completed": false
+  },
+  {
+    "id": "bb80d5a6-c442-4d24-b6cc-e624afc8c979",
+    "text": "Comprar una canasta \ud83e\uddfa para hacerle el regalo de bienvenida",
+    "completed": false
+  },
+  {
+    "id": "aa375436-ad8e-4e91-bd13-187342e49e55",
+    "text": "Comprar Juegos de mesa \u265f\ufe0f como monopolio y cartas",
+    "completed": false
+  },
+  {
+    "id": "ccc196cd-a914-4030-947d-775fcfc8a5f5",
+    "text": "Comprar toallas",
+    "completed": false
+  },
+  {
+    "id": "3d2bd824-52c0-45be-b876-8b2498de056d",
+    "text": "Comprar cart\u00f3n que va encima de los armarios",
+    "completed": false
+  },
+  {
+    "id": "102cdfca-d6ce-418c-9647-af8db74f868f",
+    "text": "Comprar percha para las ropas",
+    "completed": false
+  }
+]

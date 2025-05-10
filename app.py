@@ -1,12 +1,36 @@
 import streamlit as st
 import random
 import uuid
+import json
+import os
+
+TASKS_DATA_FILE = "tasks_data.json"
+
+# --- Helper function to save tasks ---
+def save_tasks_to_file():
+    if 'item_list' in st.session_state:
+        with open(TASKS_DATA_FILE, 'w') as f:
+            json.dump(st.session_state.item_list, f, indent=2)
+
+# --- Helper function to load tasks ---
+def load_tasks_from_file():
+    if os.path.exists(TASKS_DATA_FILE):
+        try:
+            with open(TASKS_DATA_FILE, 'r') as f:
+                return json.load(f)
+        except json.JSONDecodeError:
+            return None # Or handle error, e.g., backup old file and return None
+    return None
 
 # --- Session State Initialization ---
 if 'item_list' not in st.session_state:
-    initial_tasks = [
-        "Arreglar el aire acondicionado",
-        "Poner la cerradura con código",
+    loaded_tasks = load_tasks_from_file()
+    if loaded_tasks is not None:
+        st.session_state.item_list = loaded_tasks
+    else:
+        initial_tasks = [
+            "Arreglar el aire acondicionado",
+            "Poner la cerradura con código",
         "Poner la caja de llaves",
         "Comprar mesita para computadora",
         "Comprar un silla para la computadora", # Period removed for consistency
@@ -32,13 +56,23 @@ if 'item_list' not in st.session_state:
         "Comprar Juegos de mesa ♟️ como monopolio y cartas",
         "Comprar toallas",
         "Comprar cartón que va encima de los armarios",
-        "Comprar percha para las ropas"
-    ]
-    st.session_state.item_list = [
-        {"id": str(uuid.uuid4()), "text": task_text, "completed": False} for task_text in initial_tasks
-    ]
+            "Comprar percha para las ropas"
+        ]
+        st.session_state.item_list = [
+            {"id": str(uuid.uuid4()), "text": task_text, "completed": False} for task_text in initial_tasks
+        ]
+        save_tasks_to_file() # Save initial default tasks if file didn't exist or was invalid
+
 if 'hop_item_id' not in st.session_state:
-    st.session_state.hop_item_id = st.session_state.item_list[0]['id'] if st.session_state.item_list else None
+    # Initialize hop_item_id based on the current item_list (either loaded or default)
+    active_items_for_hop = [item['id'] for item in st.session_state.item_list if not item['completed']]
+    if active_items_for_hop:
+        st.session_state.hop_item_id = random.choice(active_items_for_hop)
+    elif st.session_state.item_list: # If all are completed, hop to first item
+        st.session_state.hop_item_id = st.session_state.item_list[0]['id']
+    else: # No items
+        st.session_state.hop_item_id = None
+
 
 st.title("Lista de Pendientes Estilo iPhone")
 
@@ -69,15 +103,16 @@ for item in st.session_state.item_list:
                 if changed_item_id == st.session_state.hop_item_id and task_item['completed']:
                     active_items_ids = [i['id'] for i in st.session_state.item_list if not i['completed']]
                     if active_items_ids:
-                        # Try to pick a different active item if possible
                         possible_next_hops = [id_ for id_ in active_items_ids if id_ != st.session_state.hop_item_id]
                         if possible_next_hops:
                              st.session_state.hop_item_id = random.choice(possible_next_hops)
-                        else: # Only one active item left (the one just completed was the only other, or it was the only one)
-                             st.session_state.hop_item_id = random.choice(active_items_ids) if active_items_ids else None
-                    else:
+                        elif active_items_ids : # Current hop was the only active one, or only one active item remains
+                             st.session_state.hop_item_id = active_items_ids[0]
+                        # else: hop_item_id remains as is if it was not the one completed, or becomes None if no active items
+                    else: # No active items left
                         st.session_state.hop_item_id = None
                 break
+        save_tasks_to_file() # Save changes to file
         # No explicit st.rerun() needed here, on_change handles it.
 
     st.checkbox(
@@ -113,9 +148,10 @@ if st.sidebar.button("Añadir Recordatorio"):
     if new_item_text:
         new_id = str(uuid.uuid4())
         st.session_state.item_list.insert(0, {"id": new_id, "text": new_item_text, "completed": False}) # Insert at the beginning
-        if st.session_state.hop_item_id is None: # If no item was hopped, hop to the new one
+        if st.session_state.hop_item_id is None and not st.session_state.item_list[0]['completed']: # If no item was hopped, hop to the new one if it's active
             st.session_state.hop_item_id = new_id
-        new_item_text = "" # Clear input, though Streamlit handles this with rerun
+        save_tasks_to_file() # Save changes to file
+        # st.session_state.new_item_text_input = "" # Attempt to clear input, though rerun handles it.
         st.rerun()
 
 if st.session_state.item_list:
@@ -143,11 +179,12 @@ if st.session_state.item_list:
             
             # If the removed item was the hopped one, pick a new one
             if st.session_state.hop_item_id == item_id_to_remove:
-                active_items = [i['id'] for i in st.session_state.item_list if not i['completed']]
-                if active_items:
-                    st.session_state.hop_item_id = random.choice(active_items)
+                active_items_ids = [i['id'] for i in st.session_state.item_list if not i['completed']]
+                if active_items_ids:
+                    st.session_state.hop_item_id = random.choice(active_items_ids)
                 else:
                     st.session_state.hop_item_id = None
+            save_tasks_to_file() # Save changes to file
             st.rerun()
 
 st.markdown("---")
