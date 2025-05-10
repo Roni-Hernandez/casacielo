@@ -43,8 +43,8 @@ if 'hop_item_id' not in st.session_state:
 st.title("Lista de Pendientes Estilo iPhone")
 
 st.write(
-    "Manage your tasks like iPhone Reminders. "
-    "Click 'Hop!' to highlight a random active task."
+    "Gestiona tus tareas al estilo de los Recordatorios de iPhone. "
+    "Haz clic en '¡Saltar!' para destacar una tarea activa al azar."
 )
 
 # --- Display Reminders ---
@@ -74,7 +74,7 @@ for item in st.session_state.item_list:
         st.rerun()
 
 # --- Hop Button ---
-if st.button("Hop!"):
+if st.button("¡Saltar!"):
     active_items_ids = [item['id'] for item in st.session_state.item_list if not item['completed']]
     if active_items_ids:
         current_hop_id = st.session_state.hop_item_id
@@ -91,10 +91,10 @@ if st.button("Hop!"):
     st.rerun()
 
 # --- Sidebar Controls ---
-st.sidebar.header("Controls")
-new_item_text = st.sidebar.text_input("Add new reminder:", key="new_item_text_input")
+st.sidebar.header("Controles")
+new_item_text = st.sidebar.text_input("Añadir nuevo recordatorio:", key="new_item_text_input")
 
-if st.sidebar.button("Add Reminder"):
+if st.sidebar.button("Añadir Recordatorio"):
     if new_item_text:
         new_id = str(uuid.uuid4())
         st.session_state.item_list.append({"id": new_id, "text": new_item_text, "completed": False})
@@ -113,15 +113,15 @@ if st.session_state.item_list:
 
     # The selectbox will show the first element of the tuple, but return the second (item_id)
     selected_tuple_for_removal = st.sidebar.selectbox(
-        "Remove a reminder:",
+        "Eliminar un recordatorio:",
         options=options_for_removal,
         format_func=lambda x: x[0], # Display the text part of the tuple
         index=None,
-        placeholder="Select reminder to remove",
+        placeholder="Selecciona recordatorio para eliminar",
         key="remove_selectbox"
     )
 
-    if st.sidebar.button("Remove Selected Reminder"):
+    if st.sidebar.button("Eliminar Recordatorio Seleccionado"):
         if selected_tuple_for_removal:
             item_id_to_remove = selected_tuple_for_removal[1] # Get the id
             st.session_state.item_list = [item for item in st.session_state.item_list if item['id'] != item_id_to_remove]
