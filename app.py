@@ -4,13 +4,43 @@ import uuid
 
 # --- Session State Initialization ---
 if 'item_list' not in st.session_state:
+    initial_tasks = [
+        "Arreglar el aire acondicionado",
+        "Poner la cerradura con código",
+        "Poner la caja de llaves",
+        "Comprar mesita para computadora",
+        "Comprar un silla para la computadora", # Period removed for consistency
+        "Comprar un cable de extensión multienchufe",
+        "Comprar un horno multifuncional",
+        "Comprar café normal",
+        "Comprar café descafeinado",
+        "Comprar te",
+        "Comprar una máquina para hacer café, no greca",
+        "Comprar jabón líquido para bañarse",
+        "Comprar jabón líquido para lavar trastes",
+        "Comprar jabón líquido para lavarse las manos",
+        "6 conjuntos de sabana blancas",
+        "Comprar una cámaratimbre de la marca Ring de batería",
+        "Comprar dos baterías extra para la cámaratimbre",
+        "Comprar cargador para las baterías", # Corrected typo
+        "Comprar la bocina para la cámara timbre", # Corrected typo
+        "Comprar un secador de pelo básico",
+        "Comprar un Extintor 🧯",
+        "Comprar un Detector de humo y monóxido de carbono",
+        "Comprar un Botiquín de primeros auxilios",
+        "Comprar una canasta 🧺 para hacerle el regalo de bienvenida",
+        "Comprar Juegos de mesa ♟️ como monopolio y cartas",
+        "Comprar toallas",
+        "Comprar cartón que va encima de los armarios",
+        "Comprar percha para las ropas"
+    ]
     st.session_state.item_list = [
-        {"id": str(uuid.uuid4()), "text": f"Item {i+1}", "completed": False} for i in range(3)
+        {"id": str(uuid.uuid4()), "text": task_text, "completed": False} for task_text in initial_tasks
     ]
 if 'hop_item_id' not in st.session_state:
     st.session_state.hop_item_id = st.session_state.item_list[0]['id'] if st.session_state.item_list else None
 
-st.title("iPhone Style Reminders")
+st.title("Lista de Pendientes Estilo iPhone")
 
 st.write(
     "Manage your tasks like iPhone Reminders. "
